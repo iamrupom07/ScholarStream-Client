@@ -60,12 +60,14 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <img
-            src="https://i.ibb.co.com/zHtFPGWb/logo-2.png"
-            alt=""
-            width={"50px"}
-            className="scale-200"
-          />
+          <Link to={"/"}>
+            <img
+              src="https://i.ibb.co.com/zHtFPGWb/logo-2.png"
+              alt=""
+              width={"50px"}
+              className="scale-200"
+            />
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
@@ -81,7 +83,7 @@ const Navbar = () => {
                 <div className="w-10 rounded-full">
                   <img
                     alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    src={user.photoURL}
                   />
                 </div>
               </div>
