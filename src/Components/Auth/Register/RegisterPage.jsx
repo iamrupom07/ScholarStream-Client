@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import axios from "axios";
 
 const RegisterPage = () => {
   const {
@@ -11,14 +12,41 @@ const RegisterPage = () => {
     formState: { errors },
   } = useForm({});
 
-  const { registerUser } = useAuth();
+  const { registerUser, upadteUserProfile } = useAuth();
 
   // 2. Form Submission Handler
   const handelRegistration = (data) => {
     console.log("Registration Data Submitted:", data);
+    const profileImg = data.photo[0];
     registerUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
+        // updateProfile
+        const formData = new FormData();
+        formData.append("image", profileImg);
+        const image_API_URL = `https://api.imgbb.com/1/upload?key=${
+          import.meta.env.VITE_IMAGE_HOST
+        }`;
+        axios
+          .post(image_API_URL, formData)
+          .then((res) => {
+            console.log("after image upload", res.data.data.display_url);
+
+            const userProfile = {
+              displayName: data.name,
+              photoURL: res.data.data.display_url,
+            };
+            upadteUserProfile(userProfile)
+              .then(() => {
+                console.log("User profile updated successfully");
+              })
+              .catch((error) => {
+                console.error("Profile Update Error:", error);
+              });
+          })
+          .catch((err) => {
+            console.error("Image Upload Error:", err);
+          });
       })
       .catch((error) => {
         console.error("Registration Error:", error);
@@ -43,6 +71,16 @@ const RegisterPage = () => {
                 placeholder="John Doe"
                 {...register("name")}
                 className="input input-bordered w-full"
+              />
+            </div>
+            <div className="form-control mb-4">
+              <label className="label">
+                <span className="label-text">Photo</span>
+              </label>
+              <input
+                type="file"
+                {...register("photo")}
+                className="file-input file-input-neutral w-full"
               />
             </div>
             <div className="form-control mb-4">
