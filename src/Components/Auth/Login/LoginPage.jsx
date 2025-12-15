@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const LoginPage = () => {
   const {
@@ -9,12 +10,15 @@ const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const location = useLocation();
+  const Navigate = useNavigate();
   const { signInUser } = useAuth();
   const handelLogin = (data) => {
     console.log(data);
     signInUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
+        Navigate(location?.state || "/");
       })
       .catch((error) => {
         console.error("Login Error:", error);
@@ -86,9 +90,13 @@ const LoginPage = () => {
           <SocialLogin></SocialLogin>
           <p className="text-center text-sm mt-8">
             Don't have an account?
-            <a href="#" className="link link-primary ml-1 font-semibold">
+            <Link
+              state={location?.state}
+              to={"/register"}
+              className="link link-primary ml-1 font-semibold"
+            >
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </div>

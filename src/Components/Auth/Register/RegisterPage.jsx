@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import axios from "axios";
@@ -11,6 +11,9 @@ const RegisterPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({});
+
+  const location = useLocation();
+  const Navigate = useNavigate();
 
   const { registerUser, upadteUserProfile } = useAuth();
 
@@ -39,6 +42,7 @@ const RegisterPage = () => {
             upadteUserProfile(userProfile)
               .then(() => {
                 console.log("User profile updated successfully");
+                Navigate(location?.state || "/");
               })
               .catch((error) => {
                 console.error("Profile Update Error:", error);
@@ -163,6 +167,7 @@ const RegisterPage = () => {
           <p className="text-center text-sm mt-8">
             Already have an account?
             <Link
+              state={location?.state}
               to={"/login"}
               className="link link-primary ml-1 font-semibold"
             >
