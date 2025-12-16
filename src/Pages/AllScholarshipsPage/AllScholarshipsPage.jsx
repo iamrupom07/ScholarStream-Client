@@ -6,43 +6,10 @@ import {
   FaTag,
   FaMoneyBillWave,
 } from "react-icons/fa";
-
-// Mock data is retained only for rendering the structure
-const allScholarships = [
-  // Retained 3 items for grid structure visualization
-  {
-    id: 1,
-    name: "Global Excellence Grant",
-    university: "Harvard University",
-    category: "Merit-based",
-    location: "USA",
-    fee: 0,
-    image:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop",
-  },
-  {
-    id: 2,
-    name: "STEM Innovation Fellowship",
-    university: "Stanford University",
-    category: "Research",
-    location: "USA",
-    fee: 50,
-    image:
-      "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2086&auto=format&fit=crop",
-  },
-  {
-    id: 3,
-    name: "Commonwealth Scholar Award",
-    university: "Oxford University",
-    category: "International",
-    location: "UK",
-    fee: 100,
-    image:
-      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop",
-  },
-];
+import { useLoaderData } from "react-router";
 
 const AllScholarshipsPage = () => {
+  const scholarships = useLoaderData();
   // Placeholder handlers to satisfy the structure
   const handleViewDetails = (id) => {
     console.log(`View Details clicked for ID: ${id}`);
@@ -79,7 +46,7 @@ const AllScholarshipsPage = () => {
                 </span>
               </label>
               <select className="select select-bordered w-full">
-                <option value="">All Categories (Placeholder)</option>
+                <option value="">All Categories</option>
                 <option>Merit-based</option>
                 <option>Research</option>
               </select>
@@ -93,7 +60,7 @@ const AllScholarshipsPage = () => {
                 </span>
               </label>
               <select className="select select-bordered w-full">
-                <option value="">All Subjects (Placeholder)</option>
+                <option value="">All Subjects </option>
                 <option>Science</option>
                 <option>Arts & Humanities</option>
               </select>
@@ -107,7 +74,7 @@ const AllScholarshipsPage = () => {
                 </span>
               </label>
               <select className="select select-bordered w-full">
-                <option value="">All Locations (Placeholder)</option>
+                <option value="">All Locations </option>
                 <option>USA</option>
                 <option>UK</option>
               </select>
@@ -123,57 +90,55 @@ const AllScholarshipsPage = () => {
         </div>
 
         {/* --- Scholarship Grid Results Structure --- */}
-        <h2 className="text-2xl font-semibold mb-6">Showing [X] Results</h2>
+        <h2 className="text-2xl font-semibold mb-6">Showing {scholarships.length} Results</h2>
 
         {/* Responsive Card Grid: 1 col mobile, 2 col tablet, 3 col desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {allScholarships.map((sch) => (
+          {scholarships.map((scholarship) => (
             <div
-              key={sch.id}
+              key={scholarship._id}
               className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100"
             >
-              {/* University Image */}
-              <figure className="h-48">
+              <figure className="relative h-48 w-full">
                 <img
-                  src={sch.image}
-                  alt={sch.university}
+                  src={scholarship.universityImage}
+                  alt={scholarship.universityName}
                   className="h-full w-full object-cover"
                 />
+                <div className="absolute top-3 right-3 badge badge-secondary font-semibold">
+                  {scholarship.rating} ★
+                </div>
               </figure>
 
-              <div className="card-body p-6">
-                {/* Scholarship Name & University */}
-                <h3 className="card-title text-xl leading-tight">{sch.name}</h3>
-                <p className="text-lg font-semibold text-primary mb-3">
-                  {sch.university}
+              <div className="card-body">
+                <h3 className="card-title text-xl text-primary">
+                  {scholarship.universityName}
+                  <div className="badge badge-outline text-xs w-32">
+                    {scholarship.scholarshipCategory}
+                  </div>
+                </h3>
+                <p className="font-medium text-gray-600">
+                  {scholarship.degree}
                 </p>
 
-                {/* Key Info Badges/Labels */}
-                <div className="space-y-2 text-sm text-gray-600">
-                  <div className="flex items-center gap-2">
-                    <FaTag className="text-secondary" />
-                    <span className="font-medium">{sch.category}</span>
+                {/* Meta Info */}
+                <div className="mt-2 space-y-2">
+                  <div className="flex items-center text-sm text-gray-500 gap-2">
+                    <span className="text-yellow-500">💰</span>{" "}
+                    {/* Or use <FaDollarSign /> */}
+                    <span>{scholarship.tuitionFees}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <FaMapMarkerAlt className="text-info" />
-                    <span>{sch.location}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <FaMoneyBillWave className="text-success" />
-                    <span>
-                      Application Fee:
-                      <span className="font-bold ml-1">
-                        {sch.fee > 0 ? `$${sch.fee}` : "Free"}
-                      </span>
-                    </span>
+                  <div className="flex items-center text-sm text-gray-500 gap-2">
+                    <span className="text-blue-500">📅</span>{" "}
+                    {/* Or use <FaCalendarAlt /> */}
+                    <span>Deadline: {scholarship.applicationDeadline}</span>
                   </div>
                 </div>
 
-                {/* View Details Button */}
-                <div className="card-actions justify-end mt-5">
+                <div className="card-actions justify-end mt-4">
                   <button
-                    onClick={() => handleViewDetails(sch.id)}
-                    className="btn btn-primary btn-block"
+                    onClick={() => handleViewDetails(scholarship._id)}
+                    className="btn btn-primary btn-sm btn-outline w-full"
                   >
                     View Details
                   </button>
