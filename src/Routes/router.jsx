@@ -31,7 +31,9 @@ export const router = createBrowserRouter([
         Component: AllScholarshipsPage,
       },
       {
-        path: "/scholarship",
+        path: "/scholarship/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/scholarships/${params.id}`),
         element: (
           <PrivateRoute>
             <ScholarshipDetailsPage></ScholarshipDetailsPage>

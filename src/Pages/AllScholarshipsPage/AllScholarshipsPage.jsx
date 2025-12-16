@@ -6,11 +6,11 @@ import {
   FaTag,
   FaMoneyBillWave,
 } from "react-icons/fa";
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 
 const AllScholarshipsPage = () => {
   const scholarships = useLoaderData();
-  // Placeholder handlers to satisfy the structure
+
   const handleViewDetails = (id) => {
     console.log(`View Details clicked for ID: ${id}`);
   };
@@ -90,7 +90,9 @@ const AllScholarshipsPage = () => {
         </div>
 
         {/* --- Scholarship Grid Results Structure --- */}
-        <h2 className="text-2xl font-semibold mb-6">Showing {scholarships.length} Results</h2>
+        <h2 className="text-2xl font-semibold mb-6">
+          Showing {scholarships.length} Results
+        </h2>
 
         {/* Responsive Card Grid: 1 col mobile, 2 col tablet, 3 col desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -136,19 +138,20 @@ const AllScholarshipsPage = () => {
                 </div>
 
                 <div className="card-actions justify-end mt-4">
-                  <button
-                    onClick={() => handleViewDetails(scholarship._id)}
+                  <Link
+                    to={`/scholarship/${scholarship._id}`}
                     className="btn btn-primary btn-sm btn-outline w-full"
                   >
-                    View Details
-                  </button>
+                    <button onClick={() => handleViewDetails(scholarship._id)}>
+                      View Details
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Placeholder for Pagination/Load More */}
         <div className="text-center mt-12">
           <button className="btn btn-outline btn-wide">
             Load More Scholarships

@@ -1,9 +1,13 @@
 import React from "react";
 import { FaUniversity, FaCalendarAlt, FaDollarSign } from "react-icons/fa";
+import { Link } from "react-router";
 
 const FeaturedSection = ({ FeaturedData }) => {
   console.log(FeaturedData);
   const scholarships = FeaturedData;
+  const handleViewDetails = (id) => {
+    console.log(`View Details clicked for ID: ${id}`);
+  };
 
   return (
     <section className="py-24 ">
@@ -25,8 +29,7 @@ const FeaturedSection = ({ FeaturedData }) => {
             >
               <figure className="relative h-48 w-full">
                 <img
-                  src={scholarship.universityImage
-}
+                  src={scholarship.universityImage}
                   alt={scholarship.universityName}
                   className="h-full w-full object-cover"
                 />
@@ -51,9 +54,7 @@ const FeaturedSection = ({ FeaturedData }) => {
                   <div className="flex items-center text-sm text-gray-500 gap-2">
                     <span className="text-yellow-500">💰</span>{" "}
                     {/* Or use <FaDollarSign /> */}
-                    <span>{scholarship.
-tuitionFees
-}</span>
+                    <span>{scholarship.tuitionFees}</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-500 gap-2">
                     <span className="text-blue-500">📅</span>{" "}
@@ -63,9 +64,14 @@ tuitionFees
                 </div>
 
                 <div className="card-actions justify-end mt-4">
-                  <button className="btn btn-primary btn-sm btn-outline w-full">
-                    View Details
-                  </button>
+                  <Link to={`/scholarship/${scholarship._id}`}  className="btn btn-primary btn-sm btn-outline w-full">
+                    <button
+                      onClick={() => handleViewDetails(scholarships._id)}
+                     
+                    >
+                      View Details
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

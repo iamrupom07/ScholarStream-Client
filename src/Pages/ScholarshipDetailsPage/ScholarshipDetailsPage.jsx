@@ -10,45 +10,11 @@ import {
   FaShare,
 } from "react-icons/fa";
 import { FaDollarSign, FaCircleCheck } from "react-icons/fa6";
-
-// --- Mock Data for a Single Scholarship ---
-const scholarshipData = {
-  id: 1,
-  name: "Global Innovator Scholarship Program",
-  university: "Imperial College London",
-  location: "London, UK",
-  type: "Full Tuition & Stipend",
-  deadline: "January 15, 2026",
-  duration: "3-4 Years (PhD)",
-  fee: 50,
-  stipend: 20000,
-  description:
-    "The Global Innovator Scholarship is designed to support outstanding international students pursuing advanced research degrees in STEM fields. It covers all tuition fees and provides a generous annual stipend to cover living expenses.",
-
-  details: {
-    benefits: [
-      "Full coverage of tuition fees.",
-      "Annual tax-free stipend of £20,000.",
-      "Research allowance up to £5,000.",
-      "One-time travel and relocation allowance.",
-    ],
-    eligibility: [
-      "Must be an international student (non-UK/EU national).",
-      "Must hold a First Class Honours degree or equivalent.",
-      "Must have applied for and received a conditional offer for a full-time PhD program.",
-      "Excellent academic and research track record.",
-    ],
-    documents: [
-      "Completed Online Application Form.",
-      "Academic Transcripts (undergraduate and postgraduate).",
-      "Two Letters of Recommendation (at least one academic).",
-      "Detailed Research Proposal (2,000 words max).",
-      "Proof of English Proficiency (IELTS/TOEFL).",
-    ],
-  },
-};
+import { useLoaderData } from "react-router";
 
 const ScholarshipDetailsPage = () => {
+  const scholarshipData = useLoaderData();
+  console.log(scholarshipData);
   // Placeholder for the application process navigation
   const handleApply = () => console.log("Apply Now clicked");
   const handleSave = () => console.log("Save Scholarship clicked");
@@ -60,11 +26,23 @@ const ScholarshipDetailsPage = () => {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 pb-6 border-b border-gray-200">
           <div>
             <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight mb-2">
-              {scholarshipData.name}
+              {scholarshipData.universityName}
             </h1>
             <div className="flex items-center text-xl text-gray-600">
               <FaUniversity className="mr-3 text-primary/70" />
-              <span className="font-light">{scholarshipData.university}</span>
+              <span className="font-light">
+                {scholarshipData.scholarshipName}
+              </span>
+            </div>
+            <div className="mt-2">
+              {" "}
+              <span className="font-bold ">World Rank :</span>{" "}
+              {scholarshipData.universityWorldRank}
+            </div>
+            <div className="mt-2">
+              {" "}
+              <span className="font-bold ">Tution Fees :</span>{" "}
+              {scholarshipData.tuitionFees}
             </div>
           </div>
 
@@ -92,7 +70,7 @@ const ScholarshipDetailsPage = () => {
                 Scholarship Overview
               </h2>
               <p className="text-lg text-gray-700 leading-relaxed">
-                {scholarshipData.description}
+                {scholarshipData.scholarshipDescription}
               </p>
             </div>
 
@@ -104,7 +82,7 @@ const ScholarshipDetailsPage = () => {
                   Award Value
                 </span>
                 <span className="text-lg font-medium">
-                  {scholarshipData.type}
+                  {scholarshipData.scholarshipCategory}
                 </span>
               </div>
               <div className="flex flex-col items-start space-y-1">
@@ -112,8 +90,9 @@ const ScholarshipDetailsPage = () => {
                 <span className="text-xs font-light text-gray-500 uppercase mt-2">
                   Duration
                 </span>
-                <span className="text-lg font-medium">
-                  {scholarshipData.duration}
+                <span className="text-sm font-medium">
+                  {scholarshipData.scholarshipPostDate} -{" "}
+                  {scholarshipData.applicationDeadline}
                 </span>
               </div>
               <div className="flex flex-col items-start space-y-1">
@@ -121,8 +100,9 @@ const ScholarshipDetailsPage = () => {
                 <span className="text-xs font-light text-gray-500 uppercase mt-2">
                   Location
                 </span>
-                <span className="text-lg font-medium">
-                  {scholarshipData.location}
+                <span className="text-sm font-medium">
+                  {scholarshipData.universityCountry} ,{" "}
+                  {scholarshipData.universityCity}
                 </span>
               </div>
               <div className="flex flex-col items-start space-y-1">
@@ -130,111 +110,49 @@ const ScholarshipDetailsPage = () => {
                 <span className="text-xs font-light text-gray-500 uppercase mt-2">
                   Deadline
                 </span>
-                <span className="text-lg font-medium text-error">
-                  {scholarshipData.deadline.split(",")[0]}
+                <span className="text-sm font-medium text-red-500">
+                  {scholarshipData.applicationDeadline}
                 </span>
               </div>
             </div>
 
-            {/* 3. Tabs (Minimalist Design) */}
-            <div className="space-y-6">
-              <div className="tabs tabs-boxed bg-gray-50 p-2 rounded-lg">
-                <input
-                  type="radio"
-                  name="details_tabs_min"
-                  id="tab_benefits_m"
-                  className="tab hidden"
-                  defaultChecked
-                />
-                <label
-                  htmlFor="tab_benefits_m"
-                  className="tab text-base font-medium"
-                >
-                  Benefits
-                </label>
-
-                <input
-                  type="radio"
-                  name="details_tabs_min"
-                  id="tab_eligibility_m"
-                  className="tab hidden"
-                />
-                <label
-                  htmlFor="tab_eligibility_m"
-                  className="tab text-base font-medium"
-                >
-                  Eligibility
-                </label>
-
-                <input
-                  type="radio"
-                  name="details_tabs_min"
-                  id="tab_documents_m"
-                  className="tab hidden"
-                />
-                <label
-                  htmlFor="tab_documents_m"
-                  className="tab text-base font-medium"
-                >
-                  Documents
-                </label>
+            <div className="tabs tabs-lift">
+              <input
+                type="radio"
+                name="my_tabs_3"
+                className="tab font-bold"
+                aria-label="Study Info Tab"
+              />
+              <div className="tab-content bg-base-100 border-base-300 p-6 list">
+                <ol>
+                  <li>
+                    {" "}
+                    <span className="font-bold ">Degree :</span>{" "}
+                    {scholarshipData.degree}
+                  </li>
+                  <li>
+                    {" "}
+                    <span className="font-bold ">Subject Category :</span>{" "}
+                    {scholarshipData.subjectCategory}
+                  </li>
+                </ol>
               </div>
 
-              {/* Tab Content Area (Visible content replaces the previous content) */}
-              <div className="tab-content">
-                {/* Benefits Content (Show when defaultChecked) */}
-                <div
-                  className="hidden peer-checked:block space-y-3"
-                  data-tab-id="tab_benefits_m"
-                >
-                  <ul className="space-y-4">
-                    {scholarshipData.details.benefits.map((item, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start text-gray-700 text-lg"
-                      >
-                        <FaCircleCheck className="text-success mt-1 mr-3 flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Eligibility Content (Show when checked) */}
-                <div
-                  className="hidden peer-checked:block space-y-3"
-                  data-tab-id="tab_eligibility_m"
-                >
-                  <ul className="space-y-4">
-                    {scholarshipData.details.eligibility.map((item, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start text-gray-700 text-lg"
-                      >
-                        <FaCircleCheck className="text-warning mt-1 mr-3 flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Documents Content (Show when checked) */}
-                <div
-                  className="hidden peer-checked:block space-y-3"
-                  data-tab-id="tab_documents_m"
-                >
-                  <ul className="space-y-4">
-                    {scholarshipData.details.documents.map((item, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start text-gray-700 text-lg"
-                      >
-                        <FaFileAlt className="text-info mt-1 mr-3 flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <input
+                type="radio"
+                name="my_tabs_3"
+                className="tab font-bold"
+                aria-label="Stipend Info Tab"
+                defaultChecked
+              />
+              <div className="tab-content bg-base-100 border-base-300 p-6">
+                <ol>
+                  <li>
+                    {" "}
+                    <span className="font-bold ">Degree :</span>{" "}
+                    {scholarshipData.stipend}
+                  </li>
+                </ol>
               </div>
             </div>
           </div>
@@ -247,9 +165,7 @@ const ScholarshipDetailsPage = () => {
               </h3>
 
               <div className="border-b border-gray-200 pb-4 mb-4">
-                <span className="text-3xl font-extrabold text-primary block">
-                  £{scholarshipData.stipend.toLocaleString()}
-                </span>
+                <span className="text-3xl font-extrabold text-primary block"></span>
                 <span className="text-sm font-light text-gray-600">
                   Annual Tax-Free Stipend
                 </span>
@@ -263,7 +179,7 @@ const ScholarshipDetailsPage = () => {
                 <div className="flex justify-between items-center text-gray-700">
                   <span className="font-light">Application Fee:</span>
                   <span className="font-semibold text-gray-800">
-                    Not Required
+                    {scholarshipData.applicationFees}
                   </span>
                 </div>
               </div>
