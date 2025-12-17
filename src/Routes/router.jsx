@@ -6,6 +6,7 @@ import RegisterPage from "../Components/Auth/Register/RegisterPage";
 import AllScholarshipsPage from "../Pages/AllScholarshipsPage/AllScholarshipsPage";
 import PrivateRoute from "./PrivateRoute";
 import ScholarshipDetailsPage from "../Pages/ScholarshipDetailsPage/ScholarshipDetailsPage";
+import DashboardLayout from "../Layouts/DashboardLayout";
 
 export const router = createBrowserRouter([
   {
@@ -41,5 +42,14 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    children: [],
   },
 ]);
