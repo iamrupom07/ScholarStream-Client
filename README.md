@@ -88,6 +88,6 @@ The application will open in your browser at `http://localhost:5173`
 
 ---
 
-Feel free to copy and paste! Just update the placeholder URLs with your actual live links. 🚀
+
 
 
