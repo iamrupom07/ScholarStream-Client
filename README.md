@@ -11,3 +11,15 @@
 
 
 This is the **frontend** repository. The backend (Node.js/Express/MongoDB/Stripe) is available here: [ScholarStream-Server](https://github.com/iamrupom07/ScholarStream-Server)
+
+
+## 🚀 Features
+
+- **Scholarship Discovery** — Search and filter scholarships by category, subject, location, etc.
+- **Detailed Scholarship Pages** — View university info, deadlines, fees, description, and student reviews.
+- **User Reviews & Ratings** — Authenticated users can submit one review per scholarship.
+- **Paid Applications** — Secure application submission with Stripe Checkout for processing fees.
+- **User Dashboard** — View saved scholarships, applied applications, reviews, and payment history.
+- **Admin/Moderator Panel** — Manage users, scholarships, applications, and view stats.
+- **Responsive Design** — Mobile-friendly UI with Tailwind CSS.
+- **Secure Authentication** — Firebase Authentication with role-based access (Student, Moderator, Admin).
