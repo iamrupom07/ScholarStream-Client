@@ -36,3 +36,18 @@ This is the **frontend** repository. The backend (Node.js/Express/MongoDB/Stripe
 | Payments          | Stripe Checkout                                   |
 | Icons             | React Icons                                       |
 | Deployment        | Firebase Hosting (live: https://schloarstream.web.app) |
+
+
+## 📦 Installation & Setup
+
+### Prerequisites
+- Node.js v18+
+- npm or yarn
+- Firebase project (for auth)
+- Backend server running (or mocked)
+
+### Steps
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/iamrupom07/ScholarStream-Client.git
+   cd ScholarStream-Client
