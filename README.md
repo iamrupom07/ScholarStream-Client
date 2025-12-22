@@ -54,4 +54,9 @@ You must have [Node.js](https://nodejs.org/en/) (which includes npm) installed o
     ```sh
     cd ScholarStream-Client
     ```
+3.  **Install dependencies:**
+    ```sh
+    npm install
+    ```
+
 
