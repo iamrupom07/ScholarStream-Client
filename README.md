@@ -73,5 +73,10 @@ You must have [Node.js](https://nodejs.org/en/) (which includes npm) installed o
     VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key
     ```
 
+5.  **Run the application:**
+    ```sh
+    npm run dev
+    ```
+
 
 
