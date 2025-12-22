@@ -8,3 +8,6 @@
 
 
 **ScholarStream** is a modern web application that helps students discover, review, and apply for scholarships. The client-side (frontend) is built with React + Vite and features a clean, responsive UI with secure authentication, scholarship search, detailed views, reviews, and paid application processing via Stripe.
+
+
+This is the **frontend** repository. The backend (Node.js/Express/MongoDB/Stripe) is available here: [ScholarStream-Server](https://github.com/iamrupom07/ScholarStream-Server)
