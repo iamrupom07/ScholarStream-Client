@@ -77,6 +77,17 @@ You must have [Node.js](https://nodejs.org/en/) (which includes npm) installed o
     ```sh
     npm run dev
     ```
+The application will open in your browser at `http://localhost:5173`
 
+---
+
+## 🧑‍💻 Author
+
+* **Rupom (iamrupom07)**
+* GitHub: [@iamrupom07](https://github.com/iamrupom07)
+
+---
+
+Feel free to copy and paste! Just update the placeholder URLs with your actual live links. 🚀
 
 
