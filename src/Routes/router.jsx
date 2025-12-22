@@ -7,6 +7,19 @@ import AllScholarshipsPage from "../Pages/AllScholarshipsPage/AllScholarshipsPag
 import PrivateRoute from "./PrivateRoute";
 import ScholarshipDetailsPage from "../Pages/ScholarshipDetailsPage/ScholarshipDetailsPage";
 import DashboardLayout from "../Layouts/DashboardLayout";
+import DashboardMainContent from "../Pages/Dashboard/DashboardMainContent/DashboardMainContent";
+import MyProfilePage from "../Pages/Dashboard/Profile/MyProfilePage";
+import AppliedScholarshipsPage from "../Pages/Dashboard/AppliedScholarshipsPage/AppliedScholarshipsPage";
+import ApplyScholarship from "../Pages/ApplyScholarshipPage/ApplyScholarship";
+import PaymentSuccess from "../Components/Payment/PaymentSuccess";
+import PaymentHistory from "../Components/Payment/PaymentHistory";
+import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
+import AdminRoute from "./AdminRoute";
+import AdminOverview from "../Pages/Dashboard/AdminOverview/AdminOverview";
+import MyApplications from "../Pages/Dashboard/MyApplications/MyApplications";
+import AdminModeratorRoute from "./AdminModeratorRoute";
+import MyReviews from "../Pages/Dashboard/MyReviews/MyReviews";
+import PaymentCancel from "../Components/Payment/PaymentCancel";
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +28,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => fetch("http://localhost:3000/featured-scholarships"),
+
         Component: HomePage,
       },
       {
@@ -28,18 +41,25 @@ export const router = createBrowserRouter([
       },
       {
         path: "/all-scholarships",
-        loader: () => fetch("http://localhost:3000/scholarships"),
+
         Component: AllScholarshipsPage,
       },
       {
         path: "/scholarship/:id",
-        loader: ({ params }) =>
-          fetch(`http://localhost:3000/scholarships/${params.id}`),
+
         element: (
           <PrivateRoute>
             <ScholarshipDetailsPage></ScholarshipDetailsPage>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/scholarship/application/:id",
+        loader: ({ params }) =>
+          fetch(
+            `https://scholar-stream-server-b2arci1hp-rupom-s-projects.vercel.app/scholarships/${params.id}`
+          ),
+        Component: ApplyScholarship,
       },
     ],
   },
@@ -50,6 +70,59 @@ export const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoute>
     ),
-    children: [],
+    children: [
+      {
+        index: true,
+        Component: DashboardMainContent,
+      },
+      {
+        path: "/dashboard/myprofile",
+        Component: MyProfilePage,
+      },
+      {
+        path: "/dashboard/applied-scholarships",
+        element: (
+          <AdminModeratorRoute>
+            <AppliedScholarshipsPage></AppliedScholarshipsPage>
+          </AdminModeratorRoute>
+        ),
+      },
+      {
+        path: "/dashboard/my-applications",
+        Component: MyApplications,
+      },
+      {
+        path: "/dashboard/payment-success",
+        Component: PaymentSuccess,
+      },
+      {
+        path: "/dashboard/payment-cancel",
+        Component: PaymentCancel,
+      },
+      {
+        path: "/dashboard/payment-history",
+        Component: PaymentHistory,
+      },
+      {
+        path: "/dashboard/my-reviews",
+        Component: MyReviews,
+      },
+      {
+        path: "/dashboard/user-management",
+        element: (
+          <AdminRoute>
+            <UserManagement></UserManagement>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/admin-stats",
+        element: (
+          <AdminRoute>
+            <AdminOverview></AdminOverview>
+          </AdminRoute>
+        ),
+      },
+    ],
   },
 ]);

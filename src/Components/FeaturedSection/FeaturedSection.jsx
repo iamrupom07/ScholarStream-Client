@@ -1,10 +1,19 @@
 import React from "react";
 import { FaUniversity, FaCalendarAlt, FaDollarSign } from "react-icons/fa";
 import { Link } from "react-router";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
-const FeaturedSection = ({ FeaturedData }) => {
-  console.log(FeaturedData);
-  const scholarships = FeaturedData;
+const FeaturedSection = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const { data: scholarships = [] } = useQuery({
+    queryKey: ["scholarships"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/featured-scholarships`);
+      return res.data;
+    },
+  });
   const handleViewDetails = (id) => {
     console.log(`View Details clicked for ID: ${id}`);
   };
@@ -33,9 +42,11 @@ const FeaturedSection = ({ FeaturedData }) => {
                   alt={scholarship.universityName}
                   className="h-full w-full object-cover"
                 />
-                <div className="absolute top-3 right-3 badge badge-secondary font-semibold">
-                  {scholarship.rating} ★
-                </div>
+                {scholarship.rating && (
+                  <div className="absolute top-3 right-3 badge badge-secondary font-semibold">
+                    {scholarship.rating} ★
+                  </div>
+                )}
               </figure>
 
               <div className="card-body">
@@ -49,26 +60,23 @@ const FeaturedSection = ({ FeaturedData }) => {
                   {scholarship.degree}
                 </p>
 
-                {/* Meta Info */}
                 <div className="mt-2 space-y-2">
                   <div className="flex items-center text-sm text-gray-500 gap-2">
-                    <span className="text-yellow-500">💰</span>{" "}
-                    {/* Or use <FaDollarSign /> */}
+                    <span className="text-yellow-500">💰</span>
                     <span>{scholarship.tuitionFees}</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-500 gap-2">
-                    <span className="text-blue-500">📅</span>{" "}
-                    {/* Or use <FaCalendarAlt /> */}
+                    <span className="text-blue-500">📅</span>
                     <span>Deadline: {scholarship.applicationDeadline}</span>
                   </div>
                 </div>
 
                 <div className="card-actions justify-end mt-4">
-                  <Link to={`/scholarship/${scholarship._id}`}  className="btn btn-primary btn-sm btn-outline w-full">
-                    <button
-                      onClick={() => handleViewDetails(scholarships._id)}
-                     
-                    >
+                  <Link
+                    to={`/scholarship/${scholarship._id}`}
+                    className="btn btn-primary btn-sm btn-outline w-full"
+                  >
+                    <button onClick={() => handleViewDetails(scholarship._id)}>
                       View Details
                     </button>
                   </Link>

@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import axios from "axios";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const RegisterPage = () => {
   const {
@@ -14,6 +15,7 @@ const RegisterPage = () => {
 
   const location = useLocation();
   const Navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const { registerUser, upadteUserProfile } = useAuth();
 
@@ -33,11 +35,24 @@ const RegisterPage = () => {
         axios
           .post(image_API_URL, formData)
           .then((res) => {
-            console.log("after image upload", res.data.data.display_url);
+            const photoURL = res.data.data.display_url;
+
+            const userInfo = {
+              email: data.email,
+              displayName: data.name,
+              photoURL: photoURL,
+            };
+
+            // create user profile
+            axiosSecure.post("/users", userInfo).then((res) => {
+              if (res.data.insertedId) {
+                console.log("User profile created in DB");
+              }
+            });
 
             const userProfile = {
               displayName: data.name,
-              photoURL: res.data.data.display_url,
+              photoURL: photoURL,
             };
             upadteUserProfile(userProfile)
               .then(() => {

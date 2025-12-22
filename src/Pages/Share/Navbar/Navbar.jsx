@@ -23,7 +23,7 @@ const Navbar = () => {
         <Link to={"/all-scholarships"}>All Scholarships</Link>
       </li>
       <li>
-        <Link to={'/dashboard'}>Dashboard</Link>
+        <Link to={"/dashboard"}>Dashboard</Link>
       </li>
       <li>
         <Link>Contact Us</Link>
@@ -92,14 +92,12 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <a className="justify-between">
+                  <Link to={"/dashboard/myprofile"} className="justify-between">
                     Profile
                     <span className="badge">New</span>
-                  </a>
+                  </Link>
                 </li>
-                <li>
-                  <a>Settings</a>
-                </li>
+
                 <li>
                   <Link onClick={handleLogout}>Logout</Link>
                 </li>

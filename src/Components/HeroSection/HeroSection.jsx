@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 const HeroSection = () => {
   return (
@@ -22,9 +23,12 @@ const HeroSection = () => {
             Discover thousands of scholarships tailored to your academic goals.
             Don't let tuition costs hold you back—start your journey today.
           </p>
-          <button className="btn btn-outline btn-lg shadow-lg">
+          <Link
+            to={"/all-scholarships"}
+            className="btn btn-outline btn-lg shadow-lg"
+          >
             Search Scholarship
-          </button>
+          </Link>
         </div>
       </div>
     </div>

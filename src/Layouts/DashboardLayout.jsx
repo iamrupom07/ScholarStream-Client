@@ -7,33 +7,33 @@ import {
   FaCog,
   FaSignOutAlt,
   FaBars,
-  FaBell,
+  FaTimes,
+  FaTimesCircle,
+  FaHistory,
 } from "react-icons/fa";
+import { MdOutlineReviews } from "react-icons/md";
 
 import DashboardNavbar from "../Pages/Share/DashboardNavbar/DashboardNavbar";
 import { Link, Outlet } from "react-router";
 import useAuth from "../Hooks/useAuth";
+import useRole from "../Hooks/useRole";
 
-const DashboardLayout = ({ children }) => {
+const DashboardLayout = () => {
   const { signOutUser } = useAuth();
+  const { role } = useRole();
 
   const handleLogout = () => {
-    signOutUser()
-      .then((result) => {
-        console.log("User logged out successfully", result.user);
-      })
-      .catch((error) => {
-        console.error("Logout Error:", error);
-      });
+    signOutUser().catch((error) => console.error("Logout Error:", error));
   };
+
   return (
-    <div className="drawer lg:drawer-open bg-base-100 min-h-screen ">
+    <div className="drawer lg:drawer-open bg-base-100 min-h-screen">
       <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
 
-      {/* --- Main Content Area --- */}
+      {/* ================= MAIN CONTENT ================= */}
       <div className="drawer-content flex flex-col">
-        {/* Top Navbar */}
-        <div className="navbar bg-white border-b border-gray-100 px-4 lg:px-8">
+        {/* TOP NAVBAR */}
+        <div className="navbar bg-white border-b px-4 lg:px-8">
           <div className="flex-none lg:hidden">
             <label
               htmlFor="dashboard-drawer"
@@ -44,80 +44,131 @@ const DashboardLayout = ({ children }) => {
           </div>
 
           <div className="flex-1">
-            <DashboardNavbar></DashboardNavbar>
+            <DashboardNavbar />
           </div>
         </div>
 
-        {/* Content Viewport */}
-        <main className="p-6 lg:p-10 bg-gray-50/50 flex-grow">
-          {/* This is where your specific page content (Statistics, Tables, etc.) will render */}
-          <div className="max-w-6xl mx-auto">
-            {children || (
-              <div className="text-center py-20">
-                <Outlet></Outlet>
-              </div>
-            )}
+        {/* PAGE CONTENT */}
+        <main className="p-6 lg:p-10 bg-gray-50 flex-grow">
+          <div className="w-11/12 mx-auto">
+            <Outlet />
           </div>
         </main>
       </div>
 
-      {/* --- Sidebar Structure --- */}
+      {/* ================= SIDEBAR ================= */}
       <div className="drawer-side z-40">
         <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
 
-        <div className="menu p-6 w-80 min-h-full bg-white text-base-content border-r border-gray-100 flex flex-col">
-          {/* Logo / Branding */}
+        <aside className="menu p-6 w-80 min-h-full bg-white border-r flex flex-col">
+          {/* LOGO */}
           <div className="px-4 mb-10">
-            <h1 className="text-2xl font-black tracking-tighter text-primary">
+            <h1 className="text-2xl font-black text-primary">
               SCHOLAR<span className="text-gray-400">STREAM</span>
             </h1>
           </div>
 
-          {/* Navigation Links */}
-          <div className="flex-grow space-y-2">
-            <p className="px-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
+          {/* MENU */}
+          <ul className="flex-grow space-y-2">
+            <p className="px-4 text-[10px] font-bold text-gray-400 uppercase">
               Main Menu
             </p>
-            <li>
-              <a className="active flex gap-4 py-3 rounded-lg font-medium">
-                <FaHome className="text-lg" /> Dashboard
-              </a>
-            </li>
-            <li>
-              <a className="flex gap-4 py-3 rounded-lg font-medium text-gray-500 hover:text-primary">
-                <FaGraduationCap className="text-lg" /> Applied Scholarships
-              </a>
-            </li>
-            <li>
-              <a className="flex gap-4 py-3 rounded-lg font-medium text-gray-500 hover:text-primary">
-                <FaHeart className="text-lg" /> Favorites
-              </a>
-            </li>
-            <li>
-              <a className="flex gap-4 py-3 rounded-lg font-medium text-gray-500 hover:text-primary">
-                <FaUser className="text-lg" /> My Profile
-              </a>
-            </li>
-          </div>
 
-          {/* Bottom Menu */}
-          <div className="pt-6 border-t border-gray-100 space-y-2">
+            {/* OVERVIEW */}
             <li>
-              <a className="flex gap-4 py-3 rounded-lg font-medium text-gray-500 hover:text-primary">
-                <FaCog className="text-lg" /> Settings
-              </a>
+              {role?.role === "admin" ? (
+                <>
+                  <Link to={"/dashboard/admin-stats"}>
+                    <FaHome />
+                    Admin Overview
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to={"/dashboard"}>
+                    <FaHome />
+                    Overview
+                  </Link>
+                </>
+              )}
             </li>
+
+            {(role?.role === "admin" || role?.role === "moderator") && (
+              <li>
+                <Link
+                  to="/dashboard/applied-scholarships"
+                  className="flex gap-4 py-3 rounded-lg text-gray-500 hover:text-primary"
+                >
+                  <FaGraduationCap /> Manage Scholarships
+                </Link>
+              </li>
+            )}
+
+            {/* MY APPLICATIONS */}
             <li>
               <Link
-                to={"/"}
-                onClick={handleLogout}
-                className="flex gap-4 py-3 rounded-lg font-medium text-error"
+                to="/dashboard/my-applications"
+                className="flex gap-4 py-3 rounded-lg text-gray-500 hover:text-primary"
               >
-                <FaSignOutAlt className="text-lg" /> Logout
+                <FaGraduationCap /> My Applications
               </Link>
             </li>
-          </div>
-        </div>
+
+            <li>
+              <Link
+                to="/dashboard/payment-history"
+                className="flex gap-4 py-3 rounded-lg text-gray-500 hover:text-primary"
+              >
+                <FaHistory /> Payment History
+              </Link>
+            </li>
+
+            {/* MY REVIEWS */}
+            <li>
+              <Link
+                to="/dashboard/my-reviews"
+                className="flex gap-4 py-3 rounded-lg text-gray-500 hover:text-primary"
+              >
+                <MdOutlineReviews /> My Reviews
+              </Link>
+            </li>
+
+            {/* ADMIN ONLY */}
+            {role?.role === "admin" && (
+              <li>
+                <Link
+                  to="/dashboard/user-management"
+                  className="flex gap-4 py-3 rounded-lg text-gray-500 hover:text-primary"
+                >
+                  <FaUser /> User Management
+                </Link>
+              </li>
+            )}
+
+            {/* PROFILE */}
+            <li>
+              <Link
+                to="/dashboard/myprofile"
+                className="flex gap-4 py-3 rounded-lg text-gray-500 hover:text-primary"
+              >
+                <FaUser /> My Profile
+              </Link>
+            </li>
+          </ul>
+
+          {/* BOTTOM MENU */}
+          <ul className=" border-t space-y-2">
+            <li>
+              <Link
+                to="/"
+                onClick={handleLogout}
+                className="flex gap-4 py-3 rounded-lg text-error"
+              >
+                <FaSignOutAlt /> Logout
+              </Link>
+            </li>
+          </ul>
+        </aside>
       </div>
     </div>
   );
