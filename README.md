@@ -23,3 +23,16 @@ This is the **frontend** repository. The backend (Node.js/Express/MongoDB/Stripe
 - **Admin/Moderator Panel** — Manage users, scholarships, applications, and view stats.
 - **Responsive Design** — Mobile-friendly UI with Tailwind CSS.
 - **Secure Authentication** — Firebase Authentication with role-based access (Student, Moderator, Admin).
+
+
+## 🛠️ Tech Stack
+
+| Category          | Technologies                                      |
+|-------------------|---------------------------------------------------|
+| Frontend          | React 18, Vite, React Router v6, TanStack Query |
+| Styling           | Tailwind CSS, DaisyUI (optional)                  |
+| State Management  | React Context, TanStack Query                     |
+| Authentication    | Firebase Auth (custom token verification)         |
+| Payments          | Stripe Checkout                                   |
+| Icons             | React Icons                                       |
+| Deployment        | Firebase Hosting (live: https://schloarstream.web.app) |
