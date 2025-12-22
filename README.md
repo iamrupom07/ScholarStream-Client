@@ -58,5 +58,20 @@ You must have [Node.js](https://nodejs.org/en/) (which includes npm) installed o
     ```sh
     npm install
     ```
+4.  **Create an environment file:**
+    Create a `.env.local` file in the root of the project. Add the following environment variables:
+
+    ```env
+    VITE_API_URL=http://localhost:5000
+    VITE_APIKEY=your_firebase_api_key
+    VITE_AUTHDOMAIN=your_firebase_auth_domain
+    VITE_PROJECTID=your_firebase_project_id
+    VITE_STORAGEBUCKET=your_firebase_storage_bucket
+    VITE_MESSAGINGSENDERID=your_firebase_messaging_sender_id
+    VITE_APPID=your_firebase_app_id
+    VITE_IMGBB_API_KEY=your_imgbb_api_key
+    VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key
+    ```
+
 
 
