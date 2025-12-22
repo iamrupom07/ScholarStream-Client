@@ -1,53 +1,57 @@
-# ScholarStream Client
+# 📚 ScholarStream Client
 
-[![React](https://img.shields.io/badge/React-18.x-blue.svg)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-5.x-success.svg)](https://vitejs.dev/)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-blueviolet)](https://tailwindcss.com/)
-[![Firebase](https://img.shields.io/badge/Firebase-Auth-orange)](https://firebase.google.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+This repository contains the client-side (frontend) code for **ScholarStream**, a full-stack web application. This is the User Interface (UI) that users interact with in their browser. It communicates with the [ScholarStream Server]([https://github.com/iamrupom07/ScholarStream-Server](https://github.com/iamrupom07/ScholarStream-Server)) to fetch and display data.
 
+## 🔗 Quick Links
 
-**ScholarStream** is a modern web application that helps students discover, review, and apply for scholarships. The client-side (frontend) is built with React + Vite and features a clean, responsive UI with secure authentication, scholarship search, detailed views, reviews, and paid application processing via Stripe.
+* **Live Website:** `[https://schloarstream.web.app/]`
+* **Server-Side Repository:** `[https://github.com/iamrupom07/ScholarStream-Server]`
+* **Live Server API:** `[https://scholar-stream-server-tau.vercel.app/]`
 
+---
 
-This is the **frontend** repository. The backend (Node.js/Express/MongoDB/Stripe) is available here: [ScholarStream-Server](https://github.com/iamrupom07/ScholarStream-Server)
+## ✨ Features
 
+* **User Authentication:** Secure user registration, login (including social login via Google), and logout.
+* **Responsive Design:** Fully responsive UI that works on desktop, tablet, and mobile devices.
+* **Protected Routes:** User-specific pages like "My Applications" and "Dashboard" are protected and only accessible to logged-in users.
+* **Scholarship Search:** Browse and search scholarships by category, country, or university.
+* **Application System:** Users can apply for scholarships with document uploads and track application status.
+* **Payment Integration:** Secure payment processing using Stripe for application fees.
+* **Review System:** Users can add reviews and ratings for scholarships.
+* **Admin Dashboard:** Admins can manage scholarships, users, and applications through a dedicated dashboard.
 
-## 🚀 Features
+---
 
-- **Scholarship Discovery** — Search and filter scholarships by category, subject, location, etc.
-- **Detailed Scholarship Pages** — View university info, deadlines, fees, description, and student reviews.
-- **User Reviews & Ratings** — Authenticated users can submit one review per scholarship.
-- **Paid Applications** — Secure application submission with Stripe Checkout for processing fees.
-- **User Dashboard** — View saved scholarships, applied applications, reviews, and payment history.
-- **Admin/Moderator Panel** — Manage users, scholarships, applications, and view stats.
-- **Responsive Design** — Mobile-friendly UI with Tailwind CSS.
-- **Secure Authentication** — Firebase Authentication with role-based access (Student, Moderator, Admin).
+## 🛠️ Technology Stack
 
+* **Framework:** [React.js](https://reactjs.org/)
+* **Routing:** [React Router](https://reactrouter.com/)
+* **Styling:** [Tailwind CSS](https://tailwindcss.com/) & [daisyUI](https://daisyui.com/)
+* **Authentication:** [Firebase Authentication](https://firebase.google.com/products/auth)
+* **Data Fetching:** [TanStack Query](https://tanstack.com/query)
+* **Payment:** [Stripe](https://stripe.com/)
+* **Hosting:** [Netlify](https://www.netlify.com/)
 
-## 🛠️ Tech Stack
+---
 
-| Category          | Technologies                                      |
-|-------------------|---------------------------------------------------|
-| Frontend          | React 18, Vite, React Router v6, TanStack Query |
-| Styling           | Tailwind CSS, DaisyUI (optional)                  |
-| State Management  | React Context, TanStack Query                     |
-| Authentication    | Firebase Auth (custom token verification)         |
-| Payments          | Stripe Checkout                                   |
-| Icons             | React Icons                                       |
-| Deployment        | Firebase Hosting (live: https://schloarstream.web.app) |
+## ⚙️ Getting Started
 
-
-## 📦 Installation & Setup
+To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites
-- Node.js v18+
-- npm or yarn
-- Firebase project (for auth)
-- Backend server running (or mocked)
 
-### Steps
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/iamrupom07/ScholarStream-Client.git
-   cd ScholarStream-Client
+You must have [Node.js](https://nodejs.org/en/) (which includes npm) installed on your local machine.
+
+### Installation
+
+1.  **Clone the repository:**
+    ```sh
+    git clone https://github.com/iamrupom07/ScholarStream-Client.git
+    ```
+
+2.  **Navigate to the project directory:**
+    ```sh
+    cd ScholarStream-Client
+    ```
+
